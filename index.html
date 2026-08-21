@@ -459,14 +459,136 @@
     .n-t { font-size: 13px; color: rgba(240,244,255,0.78); line-height: 1.65; }
     /* ─── MOBILE RESPONSIVE ENHANCEMENTS (ONLY APPLIES TO SCREENS < 768px) ─── */
     @media (max-width: 768px) {
-      .slide { padding: 20px 16px 80px !important; overflow-y: auto !important; }
-      .s-title { font-size: 26px !important; margin-bottom: 16px !important; }
-      .team-grid, .pricing-row, .stories, .insight-grid, .ask-grid, .model-row { grid-template-columns: 1fr !important; gap: 12px !important; }
-      .bundle { flex-direction: column !important; text-align: center !important; gap: 10px !important; }
-      .b-price, .b-sub { text-align: center !important; }
-      .nav { bottom: 12px !important; padding: 6px 12px !important; gap: 8px !important; }
-      .nav-btn { width: 32px !important; height: 32px !important; font-size: 14px !important; }
-      .slide-count { font-size: 12px !important; }
+      body, html {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+      }
+      .slide {
+        padding: 24px 16px 80px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+        box-sizing: border-box !important;
+      }
+      .s-title, .s2-main-title {
+        font-size: 22px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 18px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        text-align: center !important;
+      }
+      .s-tag {
+        font-size: 9.5px !important;
+        margin-bottom: 6px !important;
+        text-align: center !important;
+      }
+
+      /* Slide 1 Cover Mobile */
+      .s1 {
+        align-items: center !important;
+        text-align: center !important;
+        padding-top: 36px !important;
+      }
+      .wordmark {
+        font-size: 38px !important;
+        letter-spacing: -1px !important;
+        margin-bottom: 14px !important;
+      }
+      .cover-tag {
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+        margin-bottom: 28px !important;
+        max-width: 100% !important;
+      }
+      .cover-meta {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 14px !important;
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+      }
+      .meta {
+        text-align: left !important;
+      }
+      .meta-v {
+        font-size: 15px !important;
+      }
+      .cover-orb {
+        display: none !important;
+      }
+
+      /* Slide 2 Problem Mobile */
+      .theater-stage {
+        height: auto !important;
+        min-height: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      .spotlight-card {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+      .sp-1 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+      }
+      .sp-1 > div:first-child {
+        width: 220px !important;
+        height: 260px !important;
+        margin: 0 auto !important;
+      }
+      .sp-1 > div:last-child {
+        text-align: center !important;
+      }
+      .sp-1 > div:last-child div {
+        justify-content: center !important;
+      }
+
+      .stories, .insight-grid, .team-grid, .pricing-row, .ask-grid, .model-row {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        width: 100% !important;
+      }
+      .bundle {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 10px !important;
+      }
+      .b-price, .b-sub {
+        text-align: center !important;
+      }
+
+      /* Navigation Mobile */
+      .nav {
+        bottom: 12px !important;
+        padding: 6px 12px !important;
+        gap: 8px !important;
+        max-width: 92vw !important;
+      }
+      .nav-btn {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 13px !important;
+      }
+      .slide-count {
+        font-size: 11px !important;
+        min-width: 36px !important;
+      }
+      .dot {
+        width: 4px !important;
+        height: 4px !important;
+      }
+      .dot.active {
+        width: 12px !important;
+      }
     }
   </style>
 </head>
