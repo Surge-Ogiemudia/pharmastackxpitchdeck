@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PharmaStackX — Pitch Deck</title>
+  <meta name="description" content="PharmaStackX is building Nigeria's real-time pharmacy inventory network — solving medicine discoverability at the point of failure." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:      #060d1a;
+      --bg2:     #0a1628;
+      --green:   #00e5a0;
+      --blue:    #3b82f6;
+      --orange:  #f97316;
+      --red:     #ef4444;
+      --wa:      #25d366;
+      --text:    #f0f4ff;
+      --muted:   #7a8fa6;
+      --card:    rgba(255,255,255,0.032);
+      --cardHov: rgba(255,255,255,0.06);
+      --border:  rgba(255,255,255,0.065);
+      --gBorder: rgba(0,229,160,0.18);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* ─── CANVAS / PARTICLES ─── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── SLIDES ─── */
+    .deck { position: relative; width: 100%; height: 100%; }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 48px 72px 110px;
+      opacity: 0;
+      transform: translateX(80px) scale(0.98);
+      transition: opacity 0.55s cubic-bezier(.4,0,.2,1),
+                  transform 0.55s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: all;
+    }
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-80px) scale(0.98);
+    }
+
+    /* ─── SLIDE HEADER ─── */
+    .s-tag {
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .s-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .s-title em { color: var(--green); font-style: normal; }
+
+    /* ─── CARDS ─── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: border-color .25s, transform .25s;
+    }
+    .card:hover { border-color: var(--gBorder); transform: translateY(-2px); }
+    .card.hi { background: rgba(0,229,160,0.04); border-color: var(--gBorder); }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 200;
+      background: rgba(6,13,26,0.82);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 18px;
+      border-radius: 50px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .nav-btn {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: var(--text);
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .nav-btn:hover { background: var(--green); color: var(--bg); border-color: var(--green); }
+    .slide-count { font-size: 12px; color: var(--muted); min-width: 44px; text-align: center; }
+    .dots { display: flex; gap: 5px; }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.14);
+      transition: all .3s;
+      cursor: pointer;
+    }
+    .dot.active { background: var(--green); width: 20px; }
+
+    /* ─── SLIDE 1: COVER ─── */
+    .s1 {
+      align-items: flex-start;
+      background: radial-gradient(ellipse 60% 80% at 15% 50%, rgba(0,229,160,0.07) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 60% at 85% 20%, rgba(59,130,246,0.05) 0%, transparent 60%);
+    }
+    .wordmark {
+      font-family: 'Outfit', sans-serif;
+      font-size: 76px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -2.5px;
+      margin-bottom: 22px;
+    }
+    .wordmark b { color: var(--green); font-weight: 900; }
+    .cover-tag {
+      font-size: 26px;
+      font-weight: 300;
+      color: rgba(240,244,255,0.65);
+      line-height: 1.45;
+      max-width: 620px;
+      margin-bottom: 56px;
+    }
+    .cover-meta { display: flex; gap: 36px; }
+    .meta { border-left: 2px solid var(--green); padding-left: 14px; }
+    .meta-l { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 3px; }
+    .meta-v { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; }
+    .cover-orb {
+      position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,160,0.1), rgba(0,229,160,0.02) 50%, transparent 70%);
+      border: 1px solid rgba(0,229,160,0.08);
+      display: flex; align-items: center; justify-content: center;
+      animation: pulse 4s ease-in-out infinite;
+    }
+    .cover-orb::before {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,229,160,0.06);
+    }
+    .cover-orb::after {
+      content: '';
+      position: absolute;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(0,229,160,0.08);
+      border: 1px solid rgba(0,229,160,0.15);
+    }
+    @keyframes pulse {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-50%) scale(1.03); }
+    }
+
+    /* ─── SLIDE 2: PROBLEM ─── */
+    .s2 { background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249,115,22,0.05), transparent 60%); }
+    .stories { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; width: 100%; max-width: 1060px; }
+    .story {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .story::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .story.r::before { background: var(--red); }
+    .story.o::before { background: var(--orange); }
+    .story.b::before { background: var(--blue); }
+    .s-year { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+    .story.r .s-year { color: var(--red); }
+    .story.o .s-year { color: var(--orange); }
+    .story.b .s-year { color: var(--blue); }
+    .s-body { font-size: 13.5px; line-height: 1.75; color: rgba(240,244,255,0.72); }
+    .s-punch { margin-top: 14px; font-size: 13.5px; font-weight: 700; color: var(--text); }
+    .p-footer {
+      margin-top: 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--orange);
+      text-align: center;
+    }
+
+    /* ─── SLIDE 3: INSIGHT ─── */
+    .s3 { background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(0,229,160,0.04), transparent 60%); }
+    .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; max-width: 980px; margin-top: 0; }
+    .i-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+    .i-icon { font-size: 20px; margin-bottom: 6px; }
+    .i-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .i-desc { font-size: 11.5px; color: var(--muted); line-height: 1.55; }
+    .wa-box {
+      background: rgba(37,211,102,0.04);
+      border: 1px solid rgba(37,211,102,0.18);
+      border-radius: 14px;
+      padding: 14px 18px;
+    }
+    .wa-h { font-size: 10px; font-weight: 700; color: var(--wa); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .wa-msg {
+      display: inline-block;
+      background: rgba(37,211,102,0.08);
+      border-radius: 8px;
+      padding: 6px 11px;
+      font-size: 11.5px;
+      color: rgba(240,244,255,0.72);
+      font-style: italic;
+      margin: 3px 0;
+      margin-right: 6px;
+    }
+    .flow-box {
+      background: rgba(239,68,68,0.04);
+      border: 1px solid rgba(239,68,68,0.12);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 10px;
+    }
+    .flow-item { font-size: 12px; color: rgba(240,244,255,0.65); line-height: 1.7; }
+
+    /* ─── SLIDE 4: SOLUTION ─── */
+    .s4 { background: radial-gradient(ellipse 50% 70% at 80% 50%, rgba(0,229,160,0.06), transparent 60%); }
+    .sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; width: 100%; max-width: 1060px; align-items: center; }
+    .quote-bar {
+      margin-top: 22px;
+      padding: 16px 20px;
+      background: rgba(0,229,160,0.06);
+      border-left: 3px solid var(--green);
+      border-radius: 0 10px 10px 0;
+      font-size: 14.5px;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .terminal {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(0,229,160,0.2);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,160,0.04);
+    }
+    .t-bar {
+      background: rgba(0,229,160,0.04);
+      border-bottom: 1px solid rgba(0,229,160,0.1);
+      padding: 11px 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .t-dots { display: flex; gap: 5px; }
+    .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .t-dot:nth-child(1){background:#ef4444;} .t-dot:nth-child(2){background:#f59e0b;} .t-dot:nth-child(3){background:#22c55e;}
+    .t-label { font-size: 12px; color: var(--muted); }
+    .t-body { padding: 16px 20px; }
+    .t-search {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(0,229,160,0.28);
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 12px;
+    }
+    .t-search-icon { color: var(--green); font-size: 14px; }
+    .t-search-text { flex: 1; font-size: 14.5px; color: var(--text); }
+    .t-live { background: rgba(0,229,160,0.1); color: var(--green); font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; letter-spacing: 1px; }
+    .t-sub { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .t-result {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 9px;
+      padding: 8px 14px;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 6px;
+    }
+    .t-dist { background: rgba(0,229,160,0.1); color: var(--green); font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 6px; white-space: nowrap; }
+    .t-dist.out { background: rgba(239,68,68,0.09); color: var(--red); }
+    .t-name { font-size: 13.5px; font-weight: 600; flex: 1; }
+    .t-stock { font-size: 13px; color: #22c55e; font-weight: 600; }
+    .t-time { font-size: 11.5px; color: var(--muted); margin-left: 10px; }
+
+    .step-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+    .step-num {
+      width: 34px; height: 34px; flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(0,229,160,0.08);
+      border: 1px solid rgba(0,229,160,0.28);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; color: var(--green);
+    }
+    .step-title { font-weight: 700; font-size: 14.5px; margin-bottom: 3px; }
+    .step-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ─── SLIDE 5: PRODUCT ─── */
+    .s5 { background: var(--bg); }
+    .how-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; max-width: 1060px; margin-bottom: 24px; }
+    .how-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-align: center; position: relative;
+    }
+    .how-card.hi { background: rgba(0,229,160,0.04); border-color: var(--gBorder); }
+    .how-icon { font-size: 38px; margin-bottom: 16px; }
+    .how-title { font-family: 'Outfit', sans-serif; font-size: 21px; font-weight: 900; color: var(--green); margin-bottom: 10px; }
+    .how-desc { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+    .how-arrow {
+      position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+      font-size: 20px; color: rgba(0,229,160,0.28);
+    }
+    .wedge-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; max-width: 1060px; }
+    .wedge-item {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; padding: 14px 16px; text-align: center;
+    }
+    .wedge-icon { font-size: 22px; margin-bottom: 7px; }
+    .wedge-name { font-size: 12.5px; font-weight: 700; margin-bottom: 3px; }
+    .wedge-desc { font-size: 11.5px; color: var(--muted); }
+    .wedge-footer { grid-column: 1/-1; text-align: center; font-size: 12.5px; color: rgba(0,229,160,0.6); padding-top: 4px; }
+
+    /* ─── SLIDE 6: TRACTION ─── */
+    .s6 { background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(0,229,160,0.04), transparent 60%); }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; max-width: 1000px; }
+    .m-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px;
+      transition: border-color .25s, transform .25s;
+    }
+    .m-card:hover { border-color: var(--gBorder); transform: translateY(-2px); }
+    .m-card.hi { background: rgba(0,229,160,0.04); border-color: var(--gBorder); }
+    .m-val { font-family: 'Outfit', sans-serif; font-size: 50px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 8px; }
+    .m-label { font-size: 13.5px; color: var(--muted); }
+    .m-sub { font-size: 11.5px; color: rgba(0,229,160,0.55); margin-top: 6px; }
+    .traction-footer {
+      margin-top: 20px; padding: 14px 24px;
+      background: rgba(0,229,160,0.04); border: 1px solid var(--gBorder); border-radius: 12px;
+      max-width: 1000px; width: 100%; text-align: center; font-size: 14px; color: rgba(240,244,255,0.8);
+    }
+
+    /* ─── SLIDE 5: MARKET ─── */
+    .s5 { background: radial-gradient(ellipse 50% 70% at 0% 50%, rgba(59,130,246,0.04), transparent 60%); }
+    .market-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; width: 100%; max-width: 1000px; margin-top: 0px; align-items: stretch; }
+    .funnel-item {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 18px 12px 22px; margin-bottom: 8px; position: relative; overflow: hidden;
+    }
+    .funnel-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+    .funnel-item.tam::before { background: rgba(59,130,246,0.6); }
+    .funnel-item.sam::before { background: rgba(0,229,160,0.4); }
+    .funnel-item.som::before { background: var(--green); }
+    .f-tag { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px; font-weight: 700; }
+    .funnel-item.tam .f-tag { color: rgba(59,130,246,0.85); }
+    .funnel-item.sam .f-tag { color: rgba(0,229,160,0.85); }
+    .funnel-item.som .f-tag { color: var(--green); }
+    .f-num { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; margin-bottom: 2px; line-height: 1.1; }
+    .f-desc { font-size: 12px; color: rgba(240,244,255,0.85); line-height: 1.45; font-weight: 500; }
+    .expand-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+    .e-icon { font-size: 22px; flex-shrink: 0; }
+    .e-title { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+    .e-desc { font-size: 12px; color: rgba(240,244,255,0.85); line-height: 1.45; font-weight: 500; }
+
+    /* ─── SLIDE 8: MODEL ─── */
+    .s8 { background: var(--bg); }
+    .pricing-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; max-width: 1100px; margin-bottom: 16px; }
+    .p-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; text-align: center; transition: border-color .25s; }
+    .p-card:hover { border-color: var(--gBorder); }
+    .p-icon { font-size: 30px; margin-bottom: 10px; }
+    .p-name { font-size: 13.5px; font-weight: 700; margin-bottom: 8px; }
+    .p-price { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 900; color: var(--green); }
+    .p-period { font-size: 12px; color: var(--muted); }
+    .bundle {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(0,229,160,0.05); border: 1px solid var(--gBorder); border-radius: 16px;
+      padding: 20px 28px; width: 100%; max-width: 1100px; margin-bottom: 16px;
+    }
+    .b-title { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+    .b-desc { font-size: 13px; color: var(--muted); }
+    .b-price { font-family: 'Outfit', sans-serif; font-size: 46px; font-weight: 900; color: var(--green); text-align: right; line-height: 1; }
+    .b-sub { font-size: 12px; color: var(--muted); text-align: right; }
+    .model-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; max-width: 1100px; }
+    .model-note { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; }
+    .mn-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 8px; }
+    .mn-text { font-size: 13.5px; color: rgba(240,244,255,0.78); line-height: 1.65; }
+    .model-note.hi { background: rgba(0,229,160,0.04); border-color: var(--gBorder); }
+    .model-note.hi .mn-label { color: var(--green); }
+
+    /* ─── SLIDE 9: TEAM ─── */
+    .s9 { background: var(--bg); }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; width: 100%; max-width: 1100px; }
+    .t-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; text-align: center; }
+    .t-avatar {
+      width: 62px; height: 62px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0,229,160,0.25), rgba(59,130,246,0.2));
+      border: 2px solid rgba(0,229,160,0.18);
+      display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 14px;
+    }
+    .t-name { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 900; margin-bottom: 4px; }
+    .t-role { font-size: 10.5px; color: var(--green); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+    .t-bio { font-size: 12px; color: var(--muted); line-height: 1.65; }
+    .t-badge {
+      margin-top: 10px; font-size: 11px; background: rgba(0,229,160,0.07); border: 1px solid rgba(0,229,160,0.14);
+      border-radius: 6px; padding: 6px 10px; color: rgba(0,229,160,0.85);
+    }
+    .t-card.star { border-color: rgba(0,229,160,0.18); }
+
+    /* ─── SLIDE 10: ASK ─── */
+    .s10 { background: radial-gradient(ellipse 60% 70% at 100% 50%, rgba(0,229,160,0.07), transparent 60%); }
+    .ask-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; width: 100%; max-width: 1000px; margin-top: 8px; }
+    .ask-amount { font-family: 'Outfit', sans-serif; font-size: 82px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 4px; }
+    .ask-lbl { font-size: 15px; color: var(--muted); margin-bottom: 28px; }
+    .fund-item { display: flex; align-items: center; gap: 10px; margin-bottom: 13px; }
+    .fund-lbl { font-size: 12.5px; flex: 0 0 170px; }
+    .bar-wrap { flex: 1; height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--green), rgba(0,229,160,0.5)); border-radius: 3px; }
+    .fund-val { font-size: 12.5px; font-weight: 700; color: var(--green); flex: 0 0 50px; text-align: right; }
+    .milestone { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-top: 18px; }
+    .mile-l { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 6px; }
+    .mile-t { font-size: 14px; font-weight: 700; line-height: 1.5; }
+    .vision-card { background: rgba(0,229,160,0.04); border: 1px solid var(--gBorder); border-radius: 16px; padding: 26px; margin-bottom: 16px; }
+    .vis-l { font-size: 10.5px; text-transform: uppercase; letter-spacing: 2px; color: var(--green); margin-bottom: 10px; }
+    .vis-t { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; line-height: 1.45; }
+    .note-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; margin-bottom: 12px; }
+    .n-l { font-size: 10.5px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 6px; }
+    .n-t { font-size: 13px; color: rgba(240,244,255,0.78); line-height: 1.65; }
+    .close-line {
+      background: rgba(0,229,160,0.05); border: 1px solid var(--gBorder); border-radius: 12px;
+      padding: 16px 22px; text-align: center; font-family: 'Outfit', sans-serif; font-size: 16.5px; font-weight: 700; line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="deck" id="deck">
+
+  <!-- ══════════════════════════════════════
+       SLIDE 1 — COVER
+  ══════════════════════════════════════ -->
+  <div class="slide s1 active" id="slide-1">
+    <div class="wordmark">Pharma<b>StackX</b></div>
+    <div class="cover-tag">
+      When a pharmacy can't fill your prescription,<br>
+      PharmaStackX finds the nearest pharmacy that has it —<br>
+      <strong style="color:var(--text);">live, ranked by distance. In seconds.</strong>
+    </div>
+    <div class="cover-meta">
+      <div class="meta">
+        <div class="meta-l">Stage</div>
+        <div class="meta-v">Pre-Seed</div>
+      </div>
+      <div class="meta">
+        <div class="meta-l">Raise</div>
+        <div class="meta-v">$100,000</div>
+      </div>
+      <div class="meta">
+        <div class="meta-l">Founder</div>
+        <div class="meta-v">Surge</div>
+      </div>
+      <div class="meta">
+        <div class="meta-l">Market</div>
+        <div class="meta-v">Nigeria → Africa</div>
+      </div>
+    </div>
+    <div class="cover-orb"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 2 — PROBLEM (FULL-BLEED KEYNOTE)
+  ══════════════════════════════════════ -->
+  <div class="slide s2" id="slide-2">
+    <div class="s-tag">The Problem</div>
+    <div class="s-title s2-main-title" id="s2-main-header" style="margin-bottom:28px;font-size:32px;color:var(--text);white-space:nowrap;transition:opacity 0.4s ease;">The medicine existed. <em style="color:var(--orange);">Nobody knew where to find it.</em></div>
+    
+    <!-- Theater Unboxed Display Stage -->
+    <div class="theater-stage" style="width:100%;max-width:1060px;height:420px;margin:0 auto;position:relative;display:flex;align-items:center;justify-content:center;">
+      
+      <!-- STEP 1: SUSAN OBOH SPOTLIGHT -->
+      <div class="spotlight-card sp-1" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:grid;grid-template-columns:360px 1fr;gap:44px;align-items:center;box-sizing:border-box;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
+        <!-- LEFT: BIG STRIKING PORTRAIT -->
+        <div style="width:360px;height:420px;border-radius:18px;background:#180a0a;border:2px solid rgba(239,68,68,0.5);overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(239,68,68,0.25);box-sizing:border-box;">
+          <img id="susan-photo" src="susan_oboh.jpg" alt="Susan Oboh" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" onerror="this.style.display='none';document.getElementById('susan-placeholder').style.display='flex';" />
+          <div id="susan-placeholder" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;color:var(--red);padding:24px;text-align:center;">
+            <div style="font-size:54px;margin-bottom:12px;">🖼️</div>
+            <div style="font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;">[ Place Susan Oboh's Photo Here ]</div>
+          </div>
+        </div>
+        <!-- RIGHT: UNBOXED TEXT NARRATIVE -->
+        <div style="display:flex;flex-direction:column;justify-content:center;text-align:left;">
+          <div style="font-size:13.5px;font-weight:800;letter-spacing:3.5px;color:var(--red);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:6px;">
+            <span>❤️</span> IN MEMORY OF SUSAN OBOH
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-size:37px;font-weight:900;color:var(--text);line-height:1.22;margin-bottom:28px;">
+            Shot in 2022. Needed Tranexamic Acid Injection.<br><span style="color:var(--red);font-size:44px;display:inline-block;margin-top:6px;">Susan died.</span>
+          </div>
+          <div style="font-size:16.5px;font-weight:800;color:var(--orange);background:rgba(249,115,22,0.08);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 12px 12px 0;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+            Weeks later, I found it sitting on a shelf in a pharmacy nearby.
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: JOY AFIA SPOTLIGHT (GLASSMOPHIC QUOTE CARD) -->
+      <div class="spotlight-card sp-2" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;max-width:860px;margin:0 auto;box-sizing:border-box;opacity:0;pointer-events:none;transform:scale(0.95);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
+        
+        <!-- GLASS CARD BACKDROP -->
+        <div style="width:100%;background:rgba(18,10,10,0.6);border:1.5px solid rgba(249,115,22,0.3);border-radius:24px;padding:36px 40px;box-shadow:0 25px 70px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);position:relative;overflow:hidden;backdrop-filter:blur(16px);box-sizing:border-box;">
+          
+          <!-- WATERMARK QUOTE MARK -->
+          <div style="position:absolute;top:-30px;left:15px;font-family:'Outfit',sans-serif;font-size:180px;font-weight:900;color:rgba(249,115,22,0.07);line-height:1;pointer-events:none;user-select:none;">“</div>
+          <div style="position:absolute;bottom:-80px;right:15px;font-family:'Outfit',sans-serif;font-size:180px;font-weight:900;color:rgba(249,115,22,0.07);line-height:1;pointer-events:none;user-select:none;">”</div>
+
+          <!-- TAG -->
+          <div style="font-size:13.5px;font-weight:800;letter-spacing:3.5px;color:var(--orange);text-transform:uppercase;margin-bottom:20px;position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:6px;">
+            <span>🧡</span> JOY AFIA
+          </div>
+
+          <!-- HEADLINE -->
+          <div style="font-family:'Outfit',sans-serif;font-size:38px;font-weight:900;color:var(--text);line-height:1.22;margin-bottom:28px;position:relative;z-index:2;">
+            Asthma attack in an Uber. Visited 4 pharmacies.<br><span style="color:var(--orange);font-size:44px;display:inline-block;margin-top:6px;">Turned away at every single one.</span>
+          </div>
+
+          <!-- GREEN TEAM BADGE -->
+          <div style="font-size:17.5px;font-weight:800;color:var(--green);background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.3);padding:16px 28px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.3);position:relative;z-index:2;display:inline-block;">
+            She is now on our team, building the solution she desperately needed.
+          </div>
+
+        </div>
+      </div>
+
+      <!-- STEP 3: WHATSAPP DATA SPOTLIGHT (THE BRIDGE TO SOLUTION) -->
+      <div class="spotlight-card sp-3" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:grid;grid-template-columns:400px 1fr;gap:44px;align-items:center;box-sizing:border-box;opacity:0;pointer-events:none;transform:scale(0.95);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
+        <!-- LEFT: 180 METRIC + AUTHENTIC WHATSAPP GROUP TILE -->
+        <div>
+          <!-- ABOVE TILE HEADER -->
+          <div style="font-size:11px;font-weight:800;color:var(--wa);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;padding-left:4px;display:flex;align-items:center;gap:6px;">
+            <span>📊</span> STUDY FINDINGS
+          </div>
+
+          <!-- TILE CONTAINER -->
+          <div style="width:400px;border-radius:18px;background:rgba(37,211,102,0.04);border:2px solid rgba(37,211,102,0.4);overflow:hidden;box-shadow:0 20px 60px rgba(37,211,102,0.25);box-sizing:border-box;">
+            
+            <!-- WHATSAPP GROUP HEADER BAR -->
+            <div style="background:rgba(7,94,84,0.45);border-bottom:1px solid rgba(37,211,102,0.3);padding:10px 16px;display:flex;align-items:center;gap:12px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:#075e54;border:1px solid var(--wa);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;">
+                👥
+              </div>
+              <div style="text-align:left;">
+                <div style="font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:800;color:#ffffff;line-height:1.2;">
+                  Pharmacist Community WhatsApp Group
+                </div>
+                <div style="font-size:11px;color:var(--wa);font-weight:700;margin-top:2px;">
+                  1,000+ members • Active daily
+                </div>
+              </div>
+            </div>
+
+            <!-- TILE BODY CONTENT -->
+            <div style="padding:18px 20px 20px;">
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;">
+                <div style="font-family:'Outfit',sans-serif;font-size:56px;font-weight:900;color:var(--wa);line-height:1;">180</div>
+                <div style="font-size:13.5px;font-weight:800;color:var(--text);line-height:1.3;max-width:180px;">Daily urgent medicine requests</div>
+              </div>
+              <div style="background:rgba(37,211,102,0.12);border-radius:10px;padding:9px 12px;font-size:12.5px;color:rgba(240,244,255,0.95);font-style:italic;margin-bottom:7px;">"Who has Augmentin 625mg?"</div>
+              <div style="background:rgba(37,211,102,0.12);border-radius:10px;padding:9px 12px;font-size:12.5px;color:rgba(240,244,255,0.95);font-style:italic;margin-bottom:7px;">"Need Ipratropium nebules urgently 🙏"</div>
+              <div style="background:rgba(37,211,102,0.12);border-radius:10px;padding:9px 12px;font-size:12.5px;color:rgba(240,244,255,0.95);font-style:italic;">"Anyone have Tranexamic acid??"</div>
+            </div>
+
+          </div>
+        </div>
+        <!-- RIGHT: UNBOXED ULTRA-MINIMAL NARRATIVE -->
+        <div style="display:flex;flex-direction:column;justify-content:center;text-align:left;padding-left:10px;">
+          
+          <!-- Subheader / Title (Shifted Upwards) -->
+          <div style="font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:#ffffff;line-height:1.25;margin-bottom:28px;">
+            Existing e-medicine platforms don't work <span style="color:var(--wa);">at the pharmacy counter.</span>
+          </div>
+
+          <!-- Point 1 -->
+          <div style="font-size:20px;font-weight:700;color:rgba(240,244,255,0.9);line-height:1.45;margin-bottom:20px;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:14px 18px;border-radius:14px;">
+            <span style="font-size:26px;flex-shrink:0;">👤</span>
+            <div>Patients ask their pharmacist <strong style="color:#ffffff;font-weight:900;">FIRST</strong> <span style="color:var(--muted);font-weight:400;font-size:16.5px;">(not an app).</span></div>
+          </div>
+
+          <!-- Point 2 -->
+          <div style="font-size:20px;font-weight:700;color:rgba(240,244,255,0.9);line-height:1.45;display:flex;align-items:center;gap:14px;background:rgba(37,211,102,0.05);border:1px solid rgba(37,211,102,0.25);padding:14px 18px;border-radius:14px;">
+            <span style="font-size:26px;flex-shrink:0;">💊</span>
+            <div>Pharmacists ask their <strong style="color:var(--wa);font-weight:900;">WhatsApp group FIRST</strong> <span style="color:var(--muted);font-weight:400;font-size:16.5px;">(apps are a last resort).</span></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 3 — SOLUTION (THE TRANSFORMATION)
+  ══════════════════════════════════════ -->
+  <div class="slide s3" id="slide-3" style="padding-top:10px;padding-bottom:90px;justify-content:center;">
+    <div class="s-tag" style="margin-bottom:4px;">The Solution</div>
+    <div class="s-title" style="margin-bottom:4px;font-size:32px;">PharmaStackX Terminal</div>
+    <div style="font-size:15px;color:var(--green);font-weight:800;margin-bottom:16px;">Real-time inventory discovery on the pharmacist's desktop.</div>
+    
+    <div class="sol-grid" style="display:grid;grid-template-columns:1fr 480px;gap:32px;align-items:center;max-width:1020px;margin:0 auto;">
+      
+      <!-- LEFT: INVERSE 1-GLANCE CARDS (MATCHES SLIDE 2 STEP 3 LAYOUT IN REVERSE) -->
+      <div style="display:flex;flex-direction:column;justify-content:center;text-align:left;">
+        
+        <!-- Point 1: Counter Desktop Agent -->
+        <div style="font-size:16.5px;font-weight:700;color:rgba(240,244,255,0.95);line-height:1.4;margin-bottom:10px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:11px 15px;border-radius:12px;">
+          <span style="font-size:22px;flex-shrink:0;">💻</span>
+          <div>An AI desktop agent powered by a <strong style="color:#ffffff;font-weight:900;">shared pharmacy database.</strong></div>
+        </div>
+
+        <!-- Point 2: 3-Second Lookup -->
+        <div style="font-size:16.5px;font-weight:700;color:rgba(240,244,255,0.95);line-height:1.4;margin-bottom:10px;display:flex;align-items:center;gap:12px;background:rgba(0,229,160,0.05);border:1px solid rgba(0,229,160,0.25);padding:11px 15px;border-radius:12px;">
+          <span style="font-size:22px;flex-shrink:0;">⚡</span>
+          <div><strong style="color:var(--green);font-weight:900;">Search any unavailable medicine</strong> and see who has it in 3 seconds.</div>
+        </div>
+
+        <!-- Point 3: First-Line Solution at Point of Failure -->
+        <div style="font-size:16.5px;font-weight:700;color:rgba(240,244,255,0.95);line-height:1.4;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:11px 15px;border-radius:12px;">
+          <span style="font-size:22px;flex-shrink:0;">🎯</span>
+          <div><strong style="color:#ffffff;font-weight:900;">First-line solution at the point of failure</strong> <span style="color:var(--muted);font-weight:400;font-size:14.5px;">(before WhatsApp or e-medicine apps).</span></div>
+        </div>
+
+
+
+      </div>
+
+      <!-- RIGHT: LIVE TERMINAL GUI MOCKUP (SEARCHING TRANEXAMIC ACID INJECTION) -->
+      <div>
+        <div class="terminal" style="box-shadow:0 25px 70px rgba(0,0,0,0.6), 0 0 40px rgba(0,229,160,0.15);border:1.5px solid rgba(0,229,160,0.4);">
+          <div class="t-bar">
+            <div class="t-dots">
+              <div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div>
+            </div>
+            <div class="t-label">PharmaStackX Terminal — Source Tab</div>
+          </div>
+          <div class="t-body">
+            <div class="t-search">
+              <span class="t-search-icon">🔍</span>
+              <span class="t-search-text" style="font-weight:800;color:#ffffff;">Tranexamic Acid 500mg Injection</span>
+              <span class="t-live">LIVE</span>
+            </div>
+            <div class="t-sub">4 pharmacies found nearby</div>
+            <div class="t-result" style="background:rgba(0,229,160,0.08);border-left:3px solid var(--green);">
+              <span class="t-dist" style="background:rgba(0,229,160,0.2);color:var(--green);font-weight:900;">0.3 km</span>
+              <span class="t-name" style="font-weight:800;color:#ffffff;">Greenleaf Pharmacy</span>
+              <span class="t-stock" style="color:var(--green);font-weight:900;">✓ 8 units</span>
+              <span class="t-time" style="color:var(--green);">~2 min</span>
+            </div>
+            <div class="t-result">
+              <span class="t-dist">1.2 km</span>
+              <span class="t-name">HealthFirst Chemist</span>
+              <span class="t-stock">✓ 3 units</span>
+              <span class="t-time">~6 min</span>
+            </div>
+            <div class="t-result">
+              <span class="t-dist">2.1 km</span>
+              <span class="t-name">Medicare Pharmacy</span>
+              <span class="t-stock">✓ 12 units</span>
+              <span class="t-time">~9 min</span>
+            </div>
+            <div class="t-result" style="opacity:.45;">
+              <span class="t-dist out">3.8 km</span>
+              <span class="t-name">City Drugs</span>
+              <span style="font-size:13px;color:var(--red);">✗ Out of stock</span>
+              <span class="t-time">~18 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4 — WHY NOW? (TIMING & MACRO TRENDS)
+  ══════════════════════════════════════ -->
+  <div class="slide s4" id="slide-4" style="padding-top:20px;padding-bottom:80px;justify-content:center;">
+    <div class="s-tag" style="margin-bottom:6px;">Why Now?</div>
+    <div class="s-title" style="margin-bottom:24px;font-size:34px;color:var(--text);">Why PharmaStackX is inevitable <em style="color:var(--green);">today.</em></div>
+    
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1060px;margin:0 auto;">
+      
+      <!-- Trend 1: Supply Foundation -->
+      <div style="background:var(--card);border:1.5px solid rgba(249,115,22,0.35);border-radius:18px;padding:26px 22px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;">
+        <div style="width:46px;height:46px;border-radius:12px;background:rgba(249,115,22,0.12);border:1px solid var(--orange);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px;">💻</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:var(--text);margin-bottom:14px;line-height:1.2;">70%+ Pharmacies Digitized</div>
+        <div style="font-size:14.5px;color:rgba(240,244,255,0.88);line-height:1.6;font-weight:600;">
+          Most pharmacies already use desktop software; creating ready digital inventory at the counter.
+        </div>
+      </div>
+
+      <!-- Trend 2: Demand Validation & Bottleneck -->
+      <div style="background:var(--card);border:1.5px solid rgba(239,68,68,0.35);border-radius:18px;padding:26px 22px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;">
+        <div style="width:46px;height:46px;border-radius:12px;background:rgba(239,68,68,0.12);border:1px solid var(--red);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px;">📱</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:var(--text);margin-bottom:14px;line-height:1.2;">180 Daily Requests Tracked</div>
+        <div style="font-size:14.5px;color:rgba(240,244,255,0.88);line-height:1.6;font-weight:600;">
+          Pharmacists actively share stock on WhatsApp, but manual chats are slow and uncertain.
+        </div>
+      </div>
+
+      <!-- Trend 3: Technical AI Breakthrough -->
+      <div style="background:var(--card);border:1.5px solid rgba(0,229,160,0.35);border-radius:18px;padding:26px 22px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;">
+        <div style="width:46px;height:46px;border-radius:12px;background:rgba(0,229,160,0.12);border:1px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px;">⚡</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:var(--text);margin-bottom:14px;line-height:1.2;">AI-Powered Local Sync</div>
+        <div style="font-size:14.5px;color:rgba(240,244,255,0.88);line-height:1.6;font-weight:600;">
+          The evolution of AI enables instant POS sync via direct SQL drivers, network interception, and computer vision.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5 — MARKET OPPORTUNITY (FUSED CONCENTRIC DIAGRAM)
+  ══════════════════════════════════════ -->
+  <div class="slide s5" id="slide-5" style="padding-top:20px;padding-bottom:80px;justify-content:center;">
+    <div class="s-title" style="margin-bottom:32px;font-size:36px;color:var(--text);">Market <em style="color:var(--green);">Opportunity</em></div>
+    
+    <div style="display:flex;align-items:center;justify-content:center;max-width:980px;margin:0 auto;width:100%;">
+      <!-- FUSED DIAGRAM CONTAINER -->
+      <div style="display:flex;align-items:stretch;width:100%;max-width:960px;margin:0 auto;height:224px;position:relative;">
+        
+        <!-- LEFT: 3 PERFECTLY ALIGNED NESTED ARCS (TAM > SAM > SOM) -->
+        <div style="position:relative;width:220px;height:224px;flex-shrink:0;margin-right:-2px;z-index:2;">
+          
+          <!-- TAM Outer Segment (Spans Row 1, 2, 3 -> Height 224px) -->
+          <div style="position:absolute;left:0;top:0;width:220px;height:224px;border-radius:112px 0 0 112px;background:rgba(59,130,246,0.1);border:1.5px solid rgba(59,130,246,0.4);border-right:none;box-shadow:inset 0 0 30px rgba(59,130,246,0.05);">
+            <!-- TAM Label aligned 1-to-1 with Row 1 -->
+            <div style="position:absolute;top:22px;left:28px;font-family:'Outfit',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;color:#60a5fa;">TAM</div>
+          </div>
+
+          <!-- SAM Middle Segment (Spans Row 2, 3 -> Height 146px, Top 78px) -->
+          <div style="position:absolute;left:40px;top:78px;width:180px;height:146px;border-radius:73px 0 0 73px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.25);border-right:none;box-shadow:inset 0 0 20px rgba(255,255,255,0.04);">
+            <!-- SAM Label aligned 1-to-1 with Row 2 -->
+            <div style="position:absolute;top:22px;left:24px;font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;letter-spacing:2px;color:#ffffff;">SAM</div>
+          </div>
+
+          <!-- SOM Inner Segment (Spans Row 3 -> Height 68px, Top 156px) -->
+          <div style="position:absolute;left:80px;top:156px;width:140px;height:68px;border-radius:34px 0 0 34px;background:rgba(0,229,160,0.18);border:2px solid var(--green);border-right:none;box-shadow:0 0 30px rgba(0,229,160,0.25);">
+            <!-- SOM Label aligned 1-to-1 with Row 3 -->
+            <div style="position:absolute;top:22px;left:24px;font-family:'Outfit',sans-serif;font-weight:900;font-size:15px;letter-spacing:1.5px;color:var(--green);">SOM</div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: 3 ALIGNED HORIZONTAL CARDS FUSED DIRECTLY TO ARCS -->
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;height:224px;z-index:1;">
+          
+          <!-- TAM Row Card (Row 1: Height 68px) -->
+          <div style="height:68px;background:var(--card);border:1.5px solid rgba(59,130,246,0.35);border-left:none;border-radius:0 14px 14px 0;padding:0 24px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+            <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#60a5fa;line-height:1.2;">$1.5B+ Total Annual Drug Spend</div>
+            <div style="font-size:13px;color:rgba(240,244,255,0.85);font-weight:600;margin-top:2px;">100,000+ vendors nationwide</div>
+          </div>
+
+          <!-- SAM Row Card (Row 2: Height 68px) -->
+          <div style="height:68px;background:var(--card);border:1.5px solid rgba(255,255,255,0.18);border-left:none;border-radius:0 14px 14px 0;padding:0 24px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+            <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#ffffff;line-height:1.2;">12,416 PCN-Registered Pharmacies</div>
+            <div style="font-size:13px;color:rgba(240,244,255,0.85);font-weight:600;margin-top:2px;">Primary target network</div>
+          </div>
+
+          <!-- SOM Hero Row Card (Row 3: Height 68px) -->
+          <div style="height:68px;background:rgba(0,229,160,0.06);border:1.5px solid var(--green);border-left:none;border-radius:0 14px 14px 0;padding:0 24px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 0 35px rgba(0,229,160,0.18);">
+            <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:var(--green);line-height:1.2;">5,000 Pharmacies (Year 3)</div>
+            <div style="font-size:13px;color:rgba(240,244,255,0.95);font-weight:600;margin-top:2px;">₦750M ARR (~$500k target)</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6 — TRACTION (REAL 3-NODE SVG TREND GRAPH)
+  ══════════════════════════════════════ -->
+  <div class="slide s6" id="slide-6" style="padding-top:25px;padding-bottom:80px;justify-content:center;">
+    <div class="s-tag" style="margin-bottom:20px;">Traction</div>
+    
+    <div style="display:flex;flex-direction:column;gap:18px;max-width:1020px;margin:0 auto;width:100%;">
+      
+      <!-- REAL SVG TREND GRAPH CONTAINER WITH ALL 3 METRIC CARDS ABOVE THEIR RESPECTIVE NODES -->
+      <div style="background:var(--card);border:1.5px solid rgba(0,229,160,0.35);border-radius:20px;padding:30px 30px;box-shadow:0 15px 40px rgba(0,0,0,0.4);position:relative;overflow:visible;">
+        
+        <div style="position:relative;height:190px;width:100%;">
+          
+          <!-- SVG Trend Line Chart -->
+          <svg viewBox="0 0 700 180" style="width:100%;height:100%;overflow:visible;">
+            <!-- Grid Lines -->
+            <line x1="0" y1="35" x2="700" y2="35" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"/>
+            <line x1="0" y1="90" x2="700" y2="90" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"/>
+            <line x1="0" y1="145" x2="700" y2="145" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"/>
+
+            <defs>
+              <linearGradient id="chartGlowS6Real" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#00e5a0" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#00e5a0" stop-opacity="0.0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Filled Area under Curve -->
+            <path d="M 60 145 C 240 135, 420 85, 610 30 L 610 165 L 60 165 Z" fill="url(#chartGlowS6Real)" />
+
+            <!-- Main Glowing Curve Line extending all the way to Node 3 under Card 3 -->
+            <path d="M 60 145 C 240 135, 420 85, 610 30" fill="none" stroke="var(--green)" stroke-width="4" stroke-linecap="round" filter="drop-shadow(0 0 12px rgba(0,229,160,0.85))"/>
+
+            <!-- NODE 1 POINT ON LINE (UNDER CARD 1) -->
+            <circle cx="60" cy="145" r="7" fill="#0f172a" stroke="#60a5fa" stroke-width="3" filter="drop-shadow(0 0 10px #60a5fa)"/>
+            
+            <!-- NODE 2 POINT ON LINE (UNDER CARD 2) -->
+            <circle cx="330" cy="100" r="7" fill="#0f172a" stroke="#ffffff" stroke-width="3" filter="drop-shadow(0 0 10px #ffffff)"/>
+
+            <!-- NODE 3 POINT ON LINE (DIRECTLY UNDER CARD 3) -->
+            <circle cx="610" cy="30" r="9" fill="var(--green)" stroke="#ffffff" stroke-width="3" filter="drop-shadow(0 0 15px var(--green))"/>
+          </svg>
+
+          <!-- OVERLAY CARDS ALL POSITIONED DIRECTLY ABOVE THEIR RESPECTIVE NODES -->
+          
+          <!-- Node Card 1 (116 Pharmacies - Above Node 1) -->
+          <div style="position:absolute;left:0;bottom:42px;background:rgba(15,23,42,0.92);border:1.5px solid rgba(59,130,246,0.4);border-radius:14px;padding:12px 18px;box-shadow:0 10px 25px rgba(0,0,0,0.4);min-width:170px;">
+            <div style="font-family:'Outfit',sans-serif;font-size:28px;font-weight:900;color:#60a5fa;line-height:1;">116</div>
+            <div style="font-size:12.5px;font-weight:800;color:#ffffff;margin-top:2px;">Pharmacies Onboarded</div>
+          </div>
+
+          <!-- Node Card 2 (193 Pharmacists - Above Node 2) -->
+          <div style="position:absolute;left:42%;bottom:88px;transform:translateX(-50%);background:rgba(15,23,42,0.92);border:1.5px solid rgba(255,255,255,0.25);border-radius:14px;padding:12px 18px;box-shadow:0 10px 25px rgba(0,0,0,0.4);min-width:170px;">
+            <div style="font-family:'Outfit',sans-serif;font-size:28px;font-weight:900;color:#ffffff;line-height:1;">193</div>
+            <div style="font-size:12.5px;font-weight:800;color:#ffffff;margin-top:2px;">Pharmacists Onboarded</div>
+          </div>
+
+          <!-- Node Card 3 (30% Rx Fulfillment Rate - Positioned Directly ABOVE Node 3) -->
+          <div style="position:absolute;right:10px;top:-10px;background:rgba(0,229,160,0.14);border:2px solid var(--green);border-radius:14px;padding:12px 18px;box-shadow:0 0 30px rgba(0,229,160,0.25);min-width:180px;z-index:10;">
+            <div style="font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:var(--green);line-height:1;">30%</div>
+            <div style="font-size:13px;font-weight:800;color:#ffffff;margin-top:2px;">Rx Fulfillment Rate</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- BOTTOM ROW: TECHNICAL MOAT & UNIT ECONOMICS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        
+        <!-- Technical Moat Card -->
+        <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.14);border-radius:16px;padding:18px 24px;display:flex;align-items:center;gap:18px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+          <div style="font-size:26px;">🛠️</div>
+          <div>
+            <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:rgba(240,244,255,0.7);text-transform:uppercase;margin-bottom:2px;">TECHNICAL MOAT</div>
+            <div style="font-size:14px;color:#ffffff;font-weight:800;">7 PMS Integrations Built</div>
+            <div style="font-size:12px;color:rgba(240,244,255,0.75);font-weight:600;margin-top:1px;">Zero vendor permission required</div>
+          </div>
+        </div>
+
+        <!-- Unit Economics Card -->
+        <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.14);border-radius:16px;padding:18px 24px;display:flex;align-items:center;gap:18px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+          <div style="font-size:26px;">💰</div>
+          <div>
+            <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:rgba(240,244,255,0.7);text-transform:uppercase;margin-bottom:2px;">UNIT ECONOMICS</div>
+            <div style="font-size:14px;color:#ffffff;font-weight:800;">~$0 Customer Acquisition Cost</div>
+            <div style="font-size:12px;color:rgba(240,244,255,0.75);font-weight:600;margin-top:1px;">Organic peer referrals</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 7 — BUSINESS MODEL (30-WORD LEAN VERSION)
+  ══════════════════════════════════════ -->
+  <div class="slide s7" id="slide-7" style="padding-top:25px;padding-bottom:70px;justify-content:center;">
+    <div class="s-tag" style="margin-bottom:4px;">Business Model</div>
+    <div class="s-title" style="margin-bottom:18px;font-size:24.5px;color:var(--text);">How we get inside: <em style="color:var(--green);">Meeting pharmacies at their exact point of tech need.</em></div>
+    
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:1020px;margin:0 auto;width:100%;">
+      
+      <!-- 3 WEDGE MODULE CARDS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+        
+        <!-- Module 1: Pharmacy Management Software -->
+        <div style="background:var(--card);border:1.5px solid rgba(59,130,246,0.35);border-radius:16px;padding:18px 20px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <div style="font-size:22px;">🖥️</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#60a5fa;">₦50k<span style="font-size:11px;color:rgba(240,244,255,0.7);">/yr</span></div>
+          </div>
+          <div style="font-size:14.5px;font-weight:900;color:#ffffff;">Pharmacy Management Software</div>
+          <div style="font-size:12px;color:rgba(240,244,255,0.75);font-weight:600;margin-top:2px;">POS &amp; Live Inventory DB</div>
+        </div>
+
+        <!-- Module 2: EMR Module -->
+        <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.18);border-radius:16px;padding:18px 20px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <div style="font-size:22px;">📋</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#ffffff;">₦50k<span style="font-size:11px;color:rgba(240,244,255,0.7);">/yr</span></div>
+          </div>
+          <div style="font-size:14.5px;font-weight:900;color:#ffffff;">EMR Module</div>
+          <div style="font-size:12px;color:rgba(240,244,255,0.75);font-weight:600;margin-top:2px;">Patient Clinical Rx Records</div>
+        </div>
+
+        <!-- Module 3: Digitization -->
+        <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.18);border-radius:16px;padding:18px 20px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <div style="font-size:22px;">🌐</div>
+            <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#ffffff;">₦50k<span style="font-size:11px;color:rgba(240,244,255,0.7);">/yr</span></div>
+          </div>
+          <div style="font-size:14.5px;font-weight:900;color:#ffffff;">Digitization</div>
+          <div style="font-size:12px;color:rgba(240,244,255,0.75);font-weight:600;margin-top:2px;">Subdomain Website &amp; AI Social</div>
+        </div>
+
+      </div>
+
+      <!-- HERO FULL TERMINAL BUNDLE -->
+      <div style="background:rgba(0,229,160,0.08);border:1.5px solid var(--green);border-radius:18px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 0 35px rgba(0,229,160,0.18);">
+        <div>
+          <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;margin-bottom:2px;">FULL TERMINAL BUNDLE</div>
+          <div style="font-size:13.5px;color:rgba(240,244,255,0.9);font-weight:600;">All Modules + Source Tab Network Access</div>
+        </div>
+        <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:var(--green);line-height:1;">₦150,000<span style="font-size:15px;color:rgba(240,244,255,0.7);">/yr</span></div>
+      </div>
+
+      <!-- FULFILLMENT COMMISSION -->
+      <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.14);border-radius:16px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+        <div>
+          <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;">FULFILLMENT COMMISSION</div>
+          <div style="font-size:13.5px;color:#ffffff;font-weight:700;margin-top:2px;">Marketplace transaction cut on medicine matches</div>
+        </div>
+        <div style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:var(--green);">25% Fee</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 8 — COMPETITION (36-WORD LEAN VERSION)
+  ══════════════════════════════════════ -->
+  <div class="slide s8" id="slide-8" style="padding-top:25px;padding-bottom:60px;justify-content:center;">
+    <div class="s-tag" style="margin-bottom:20px;">Competition</div>
+    
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:1020px;margin:0 auto;width:100%;">
+      
+      <!-- 2X2 COMPETITIVE MATRIX CONTAINER -->
+      <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.14);border-radius:18px;padding:22px 24px 22px 42px;position:relative;box-shadow:0 15px 40px rgba(0,0,0,0.4);">
+        
+        <!-- Y-Axis Label (Vertical - Clean writing-mode) -->
+        <div style="position:absolute;left:14px;top:54%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-lr;font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;white-space:nowrap;">
+          ▲ AUTOMATED LIVE NETWORK
+        </div>
+
+        <!-- X-Axis Label (Horizontal Bottom) -->
+        <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;text-align:right;margin-bottom:8px;padding-right:4px;">
+          PHARMACIST DESKTOP (POINT OF FAILURE) ►
+        </div>
+
+        <!-- 2X2 GRID -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;position:relative;min-height:240px;">
+          
+          <!-- Crosshair Center Lines -->
+          <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1);border-right:1px dashed rgba(255,255,255,0.2);"></div>
+          <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(255,255,255,0.1);border-bottom:1px dashed rgba(255,255,255,0.2);"></div>
+
+          <!-- Quadrant 1 (Top-Left): B2C E-Medicine Platforms -->
+          <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:13.5px;font-weight:900;color:rgba(240,244,255,0.85);margin-bottom:2px;">B2C E-Medicine Apps</div>
+            <div style="font-size:11.5px;color:var(--muted);font-weight:600;">Far from counter; expects patient app</div>
+          </div>
+
+          <!-- Quadrant 2 (Top-Right): PharmaStackX (WINNER!) -->
+          <div style="background:rgba(0,229,160,0.1);border:2px solid var(--green);border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 0 25px rgba(0,229,160,0.2);position:relative;z-index:2;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
+              <div style="font-family:'Outfit',sans-serif;font-size:17px;font-weight:900;color:var(--green);">🏆 PharmaStackX</div>
+              <div style="font-size:9px;font-weight:800;background:var(--green);color:#061426;padding:2px 6px;border-radius:8px;text-transform:uppercase;">WINNER</div>
+            </div>
+            <div style="font-size:11.5px;color:#ffffff;font-weight:700;">Pharmacist PC at point of failure</div>
+          </div>
+
+          <!-- Quadrant 3 (Bottom-Left): Standalone POS, EMR, Digital -->
+          <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:13.5px;font-weight:900;color:rgba(240,244,255,0.85);margin-bottom:2px;">Standalone POS, EMR, Digital</div>
+            <div style="font-size:11.5px;color:var(--muted);font-weight:600;">Isolated store silos; zero network</div>
+          </div>
+
+          <!-- Quadrant 4 (Bottom-Right): WhatsApp Groups & Calls -->
+          <div style="background:rgba(15,23,42,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:13.5px;font-weight:900;color:rgba(240,244,255,0.85);margin-bottom:2px;">WhatsApp &amp; Calls</div>
+            <div style="font-size:11.5px;color:var(--muted);font-weight:600;">At counter, but slow manual texts</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- 3 ULTRA-LEAN MOAT SUMMARY CARDS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div style="background:var(--card);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--green);">vs. WHATSAPP</div>
+          <div style="font-size:11.5px;color:#ffffff;font-weight:700;margin-top:1px;">Sub-second automated search</div>
+        </div>
+        <div style="background:var(--card);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--green);">vs. B2C APPS</div>
+          <div style="font-size:11.5px;color:#ffffff;font-weight:700;margin-top:1px;">B2B counter terminal focus</div>
+        </div>
+        <div style="background:var(--card);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:10px 14px;text-align:center;">
+          <div style="font-size:10px;font-weight:800;color:var(--green);">vs. STANDALONE SOFTWARE</div>
+          <div style="font-size:11.5px;color:#ffffff;font-weight:700;margin-top:1px;">Connected inter-store network</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 9 — FINANCIAL PROJECTIONS (30-WORD MAX)
+  ══════════════════════════════════════ -->
+  <div class="slide s9" id="slide-9" style="padding-top:25px;padding-bottom:70px;justify-content:center;">
+    <div class="s-tag" style="margin-bottom:20px;">Financials</div>
+    
+    <div style="display:flex;flex-direction:column;gap:18px;max-width:1020px;margin:0 auto;width:100%;">
+      
+      <!-- 3-YEAR PROJECTION CARDS -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;">
+        
+        <!-- Year 1 -->
+        <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.14);border-radius:16px;padding:22px 24px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+          <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">YEAR 1 (2026)</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:#ffffff;line-height:1;">$150k</div>
+          <div style="font-size:12.5px;color:var(--green);font-weight:800;margin-top:6px;">500 Pharmacies</div>
+        </div>
+
+        <!-- Year 2 -->
+        <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.14);border-radius:16px;padding:22px 24px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+          <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">YEAR 2 (2027)</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:#ffffff;line-height:1;">$750k</div>
+          <div style="font-size:12.5px;color:var(--green);font-weight:800;margin-top:6px;">2,500 Pharmacies</div>
+        </div>
+
+        <!-- Year 3 -->
+        <div style="background:rgba(0,229,160,0.1);border:2px solid var(--green);border-radius:16px;padding:22px 24px;box-shadow:0 0 30px rgba(0,229,160,0.2);">
+          <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;margin-bottom:4px;">YEAR 3 (2028)</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:var(--green);line-height:1;">$2.4M</div>
+          <div style="font-size:12.5px;color:#ffffff;font-weight:800;margin-top:6px;">8,000 Pharmacies</div>
+        </div>
+
+      </div>
+
+      <!-- PATH TO CASH-FLOW POSITIVE BANNER -->
+      <div style="background:var(--card);border:1.5px solid rgba(0,229,160,0.35);border-radius:16px;padding:20px 26px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+        <div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;margin-bottom:2px;">PATH TO PROFITABILITY</div>
+          <div style="font-size:14px;color:#ffffff;font-weight:800;">Cash-flow positive at Month 10 (350 pharmacies via ~$0 CAC referrals).</div>
+        </div>
+        <div style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:var(--green);white-space:nowrap;">85%+ Margin</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 10 — TEAM (22-WORD LEAN VERSION)
+  ══════════════════════════════════════ -->
+  <div class="slide s10" id="slide-10" style="padding-top:25px;padding-bottom:70px;justify-content:center;">
+    <div class="s-tag" style="margin-bottom:4px;">Team</div>
+    <div class="s-title" style="margin-bottom:24px;font-size:25px;color:var(--text);">Built by domain experts.</div>
+    
+    <div class="team-grid" style="grid-template-columns:repeat(4, 1fr);gap:16px;max-width:1060px;margin:0 auto;">
+      
+      <!-- Surge -->
+      <div class="t-card" style="padding:22px 16px;text-align:center;">
+        <div class="t-avatar" style="margin:0 auto 12px;">⚡</div>
+        <div class="t-name" style="font-size:16px;font-weight:900;">Surge</div>
+        <div class="t-role" style="font-size:10px;font-weight:800;color:var(--green);margin-bottom:10px;">FOUNDER &amp; CEO</div>
+        <div style="font-size:12px;color:#ffffff;font-weight:700;">Licensed pharmacist</div>
+      </div>
+
+      <!-- Dr. Maurice -->
+      <div class="t-card" style="padding:22px 16px;text-align:center;">
+        <div class="t-avatar" style="margin:0 auto 12px;">🏥</div>
+        <div class="t-name" style="font-size:16px;font-weight:900;">Dr. Maurice Molokwu</div>
+        <div class="t-role" style="font-size:10px;font-weight:800;color:var(--green);margin-bottom:10px;">INDUSTRY ADVISOR</div>
+        <div style="font-size:12px;color:#ffffff;font-weight:700;">Ex-GSK Director, South-South</div>
+      </div>
+
+      <!-- Osarogie -->
+      <div class="t-card" style="padding:22px 16px;text-align:center;">
+        <div class="t-avatar" style="margin:0 auto 12px;">🤖</div>
+        <div class="t-name" style="font-size:16px;font-weight:900;">Osarogie Ogiemudia</div>
+        <div class="t-role" style="font-size:10px;font-weight:800;color:var(--green);margin-bottom:10px;">TECHNICAL ADVISOR</div>
+        <div style="font-size:12px;color:#ffffff;font-weight:700;">Software &amp; robotics depth</div>
+      </div>
+
+      <!-- Joy Afia -->
+      <div class="t-card star" style="padding:22px 16px;text-align:center;background:rgba(0,229,160,0.1);border:2px solid var(--green);">
+        <div class="t-avatar" style="margin:0 auto 12px;background:rgba(0,229,160,0.2);border-color:var(--green);">💊</div>
+        <div class="t-name" style="font-size:16px;font-weight:900;color:var(--green);">Joy Afia</div>
+        <div class="t-role" style="font-size:10px;font-weight:800;color:var(--green);margin-bottom:10px;">OPERATIONS</div>
+        <div style="font-size:12px;color:#ffffff;font-weight:700;">Patient turned team member</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 11 — THE ASK (32-WORD LEAN VERSION)
+  ══════════════════════════════════════ -->
+  <div class="slide s11" id="slide-11" style="padding-top:25px;padding-bottom:70px;justify-content:center;">
+    <div class="s-tag" style="margin-bottom:4px;">Pre-Seed Round</div>
+    <div class="s-title" style="margin-bottom:22px;font-size:25px;color:var(--text);">The Ask: <em style="color:var(--green);">$100k to reach 500 pharmacies &amp; profitability.</em></div>
+    
+    <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;max-width:1040px;margin:0 auto;width:100%;">
+      
+      <!-- LEFT BOX: CAPITAL & USE OF PROCEEDS -->
+      <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.14);border-radius:18px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+        <div style="font-family:'Outfit',sans-serif;font-size:42px;font-weight:900;color:var(--green);line-height:1;">$100k</div>
+        <div style="font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:4px 0 16px;">Pre-Seed Investment</div>
+        
+        <!-- Allocations -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#ffffff;font-weight:700;">
+            <span>Engineering &amp; Integrations</span>
+            <span style="color:var(--green);">$35k (35%)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#ffffff;font-weight:700;">
+            <span>Ops &amp; Cloud Infra</span>
+            <span style="color:var(--green);">$35k (35%)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#ffffff;font-weight:700;">
+            <span>Field Sales &amp; Onboarding</span>
+            <span style="color:var(--green);">$30k (30%)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT BOX: MILESTONE & VISION -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        
+        <!-- Target Milestone Card -->
+        <div style="background:rgba(0,229,160,0.1);border:2px solid var(--green);border-radius:18px;padding:24px;box-shadow:0 0 30px rgba(0,229,160,0.15);">
+          <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--green);text-transform:uppercase;margin-bottom:6px;">TARGET MILESTONE</div>
+          <div style="font-size:15px;color:#ffffff;font-weight:800;line-height:1.4;">
+            500 pharmacies → $150k ARR → Cash-flow positive.
+          </div>
+        </div>
+
+        <!-- Vision Statement Card -->
+        <div style="background:var(--card);border:1.5px solid rgba(255,255,255,0.14);border-radius:18px;padding:20px 24px;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">5-YEAR VISION</div>
+          <div style="font-size:13px;color:rgba(240,244,255,0.9);font-weight:700;">
+            Building Africa's real-time pharmacy counter network.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- ─── NAVIGATION ─── -->
+<div class="nav" id="nav">
+  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" title="Previous (←)">←</button>
+  <div class="dots" id="dots"></div>
+  <div class="slide-count" id="slideCount">1 / 11</div>
+  <button class="nav-btn" id="nextBtn" onclick="navigate(1)" title="Next (→)">→</button>
+  <button class="nav-btn" id="fsBtn" onclick="toggleFS()" title="Full Screen (F)" style="margin-left:6px;font-size:13px;">FS</button>
+</div>
+
+<script>
+  /* ─── BACKGROUND PARTICLES ─── */
+  (function(){
+    const canvas = document.getElementById('bg-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H, particles;
+    function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+    function mkParticle(){
+      return {
+        x: Math.random()*W, y: Math.random()*H,
+        r: Math.random()*1.8+0.3,
+        vx: (Math.random()-.5)*0.18, vy: (Math.random()-.5)*0.18,
+        a: Math.random()*0.35+0.05
+      };
+    }
+    function init(){ resize(); particles=Array.from({length:80},mkParticle); }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(0,229,160,'+p.a+')';
+        ctx.fill();
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>W) p.vx*=-1;
+        if(p.y<0||p.y>H) p.vy*=-1;
+      });
+      requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize',resize);
+    init(); draw();
+  })();
+
+  /* ─── SLIDE NAVIGATION ─── */
+  const slides = document.querySelectorAll('.slide');
+  const TOTAL = slides.length;
+  let current = 1;
+
+  const dotsEl = document.getElementById('dots');
+  if(dotsEl){
+    for(let i=1;i<=TOTAL;i++){
+      const d=document.createElement('div');
+      d.className='dot'+(i===1?' active':'');
+      d.title='Slide '+i;
+      d.onclick=(function(idx){ return function(){ goTo(idx); }; })(i);
+      dotsEl.appendChild(d);
+    }
+  }
+
+  let s2Step = 1;
+
+  function updateS2Spotlight(){
+    const sp1 = document.querySelector('.sp-1');
+    const sp2 = document.querySelector('.sp-2');
+    const sp3 = document.querySelector('.sp-3');
+    if(!sp1 || !sp2 || !sp3) return;
+
+    const mainHeader = document.getElementById('s2-main-header');
+
+    if(s2Step === 1){
+      if(mainHeader){ mainHeader.style.opacity = '1'; mainHeader.style.visibility = 'visible'; }
+      sp1.style.opacity = '1'; sp1.style.transform = 'scale(1)'; sp1.style.pointerEvents = 'all';
+      sp2.style.opacity = '0'; sp2.style.transform = 'scale(0.94)'; sp2.style.pointerEvents = 'none';
+      sp3.style.opacity = '0'; sp3.style.transform = 'translateY(0) scale(0.94)'; sp3.style.pointerEvents = 'none';
+    } else if(s2Step === 2){
+      if(mainHeader){ mainHeader.style.opacity = '0'; mainHeader.style.visibility = 'hidden'; }
+      sp1.style.opacity = '0'; sp1.style.transform = 'scale(0.94)'; sp1.style.pointerEvents = 'none';
+      sp2.style.opacity = '1'; sp2.style.transform = 'translateY(-20px) scale(1)'; sp2.style.pointerEvents = 'all';
+      sp3.style.opacity = '0'; sp3.style.transform = 'translateY(0) scale(0.94)'; sp3.style.pointerEvents = 'none';
+    } else if(s2Step === 3){
+      if(mainHeader){ mainHeader.style.opacity = '0'; mainHeader.style.visibility = 'hidden'; }
+      sp1.style.opacity = '0'; sp1.style.transform = 'scale(0.94)'; sp1.style.pointerEvents = 'none';
+      sp2.style.opacity = '0'; sp2.style.transform = 'scale(0.94)'; sp2.style.pointerEvents = 'none';
+      sp3.style.opacity = '1'; sp3.style.transform = 'translateY(-30px) scale(1)'; sp3.style.pointerEvents = 'all';
+    }
+  }
+
+  function resetS2(){
+    s2Step = 1;
+    updateS2Spotlight();
+  }
+
+  function goTo(n, stepOverride){
+    if(n===current && stepOverride === undefined) return;
+    const prev=document.getElementById('slide-'+current);
+    const next=document.getElementById('slide-'+n);
+    if(!prev || !next) return;
+    prev.classList.remove('active');
+    prev.classList.add('exit');
+    setTimeout(function(){ prev.classList.remove('exit'); },550);
+    next.classList.add('active');
+    current=n;
+
+    if(current === 2){
+      s2Step = stepOverride !== undefined ? stepOverride : 1;
+      updateS2Spotlight();
+    } else {
+      resetS2();
+    }
+
+    const allDots = document.querySelectorAll('.dot');
+    for(let i=0; i<allDots.length; i++){
+      if(i === n-1) { allDots[i].classList.add('active'); }
+      else { allDots[i].classList.remove('active'); }
+    }
+
+    const sc = document.getElementById('slideCount');
+    if(sc) sc.textContent=n+' / '+TOTAL;
+    const pb = document.getElementById('prevBtn');
+    if(pb) pb.style.opacity=n===1?'0.3':'1';
+    const nb = document.getElementById('nextBtn');
+    if(nb) nb.style.opacity=n===TOTAL?'0.3':'1';
+  }
+
+  function navigate(dir){
+    if(current === 2){
+      if(dir === 1){
+        if(s2Step < 3){
+          s2Step++;
+          updateS2Spotlight();
+          return;
+        }
+      } else if(dir === -1){
+        if(s2Step > 1){
+          s2Step--;
+          updateS2Spotlight();
+          return;
+        }
+      }
+    }
+    const n=current+dir;
+    if(n>=1&&n<=TOTAL) goTo(n, dir===-1?3:1);
+  }
+
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','Space',' '].indexOf(e.key) !== -1){ e.preventDefault(); navigate(1); }
+    if(['ArrowLeft','ArrowUp'].indexOf(e.key) !== -1){ e.preventDefault(); navigate(-1); }
+    if(e.key==='f'||e.key==='F'){ toggleFS(); }
+  });
+
+  // Touch swipe support
+  let touchX=null;
+  document.addEventListener('touchstart',function(e){ touchX=e.touches[0].clientX; });
+  document.addEventListener('touchend',function(e){
+    if(touchX===null) return;
+    const dx=e.changedTouches[0].clientX-touchX;
+    if(Math.abs(dx)>50) navigate(dx<0?1:-1);
+    touchX=null;
+  });
+
+  // Init button states
+  const pBtn = document.getElementById('prevBtn');
+  if(pBtn) pBtn.style.opacity='0.3';
+
+  // Fullscreen helper
+  function toggleFS(){
+    const btn = document.getElementById('fsBtn');
+    if(!document.fullscreenElement){
+      document.documentElement.requestFullscreen().catch(function(){});
+      if(btn) btn.title = 'Exit Full Screen (F or Esc)';
+    } else {
+      if(document.exitFullscreen) document.exitFullscreen().catch(function(){});
+      if(btn) btn.title = 'Full Screen (F)';
+    }
+  }
+</script>
+</body>
+</html>
