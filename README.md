@@ -8,8 +8,9 @@ This repository contains the official pitch deck assets for **PharmaStackX**, in
 
 ## 🌟 Pitch Deck Files
 
-- **`index.html`** — Interactive, animated web pitch deck (100% dark glassmorphism aesthetic). Press **`F`** in your browser for full-screen presentation mode!
-- **`PharmaStackX_PitchDeck_HD.pdf`** — High-resolution 4K PDF version for accelerator applications and investor email attachments.
+- **`index.html`** — Interactive, animated web pitch deck (100% dark glassmorphism aesthetic). Mobile-compliant and desktop full-screen ready! Press **`F`** in your browser for full screen mode.
+- **`PharmaStackX_PitchDeck_Large.pdf`** — **[RECOMMENDED PDF]** Ultra-legible 4K PDF version with large text and edge-to-edge content, optimized for mobile reading and email attachments.
+- **`PharmaStackX_PitchDeck_HD.pdf`** — Standard high-resolution PDF version.
 - **`PharmaStackX_PitchDeck_HD.pptx`** — Pixel-perfect PowerPoint export matching the web deck styling.
 - **`PharmaStackX_PitchDeck.pptx`** — Standard PowerPoint presentation deck.
 
