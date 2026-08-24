@@ -15,8 +15,9 @@ def create_large_pptx():
     # Expected list of slide files in chronological presentation order
     slide_files = [
         "slide_large_1.png",
-        "slide_large_2_step1.png",  # Susan Oboh & Joy Afia Side-by-Side
-        "slide_large_2_step2.png",  # WhatsApp Study Findings (180 daily requests)
+        "slide_large_2_step1.png",  # Susan Oboh Highlight (Joy Dimmed)
+        "slide_large_2_step2.png",  # Joy Afia Highlight (Susan Dimmed)
+        "slide_large_2_step3.png",  # WhatsApp Study Findings (180 daily requests)
         "slide_large_3.png",
         "slide_large_4.png",
         "slide_large_5.png",

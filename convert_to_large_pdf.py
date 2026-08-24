@@ -39,14 +39,14 @@ def generate_large_legible_pdf():
 
         for i in range(1, total_slides + 1):
             if i == 2:
-                # SLIDE 2 HAS 2 SUB-STEPS (SUSAN & JOY SIDE-BY-SIDE, WHATSAPP DATA)
-                for step in range(1, 3):
+                # SLIDE 2 HAS 3 SUB-STEPS (SUSAN HIGHLIGHT -> JOY HIGHLIGHT -> WHATSAPP DATA)
+                for step in range(1, 4):
                     page.evaluate(f"goTo(2, {step});")
                     page.wait_for_timeout(600)
                     img_path = os.path.join(img_dir, f"slide_large_2_step{step}.png")
                     page.screenshot(path=img_path, full_page=True)
                     screenshot_paths.append(img_path)
-                    print(f"Captured Slide 2 Step {step}/2 (Susan & Joy / WhatsApp) -> {img_path}")
+                    print(f"Captured Slide 2 Step {step}/3 -> {img_path}")
                     shot_count += 1
             else:
                 page.evaluate(f"goTo({i});")

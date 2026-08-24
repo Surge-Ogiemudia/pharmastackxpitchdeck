@@ -637,7 +637,7 @@
       <div class="spotlight-card sp-1" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch;max-width:1040px;margin:0 auto;box-sizing:border-box;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
         
         <!-- CARD 1: SUSAN OBOH -->
-        <div style="background:var(--card);border:1.5px solid rgba(239,68,68,0.4);border-radius:20px;padding:24px 22px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;">
+        <div id="s2-card-susan" style="background:var(--card);border:1.5px solid rgba(239,68,68,0.4);border-radius:20px;padding:24px 22px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);">
           <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);"></div>
           
           <div>
@@ -673,7 +673,7 @@
         </div>
 
         <!-- CARD 2: JOY AFIA -->
-        <div style="background:var(--card);border:1.5px solid rgba(249,115,22,0.4);border-radius:20px;padding:26px 24px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;">
+        <div id="s2-card-joy" style="background:var(--card);border:1.5px solid rgba(249,115,22,0.4);border-radius:20px;padding:26px 24px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);">
           <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange);"></div>
           
           <!-- WATERMARK QUOTE MARKS -->
@@ -1487,18 +1487,33 @@
   function updateS2Spotlight(){
     const sp1 = document.querySelector('.sp-1');
     const sp2 = document.querySelector('.sp-2');
-    if(!sp1 || !sp2) return;
-
+    const cardSusan = document.getElementById('s2-card-susan');
+    const cardJoy = document.getElementById('s2-card-joy');
     const mainHeader = document.getElementById('s2-main-header');
 
     if(s2Step === 1){
+      // Step 1: Susan Highlighted, Joy Dimmed
       if(mainHeader){ mainHeader.style.opacity = '1'; mainHeader.style.visibility = 'visible'; }
-      sp1.style.opacity = '1'; sp1.style.transform = 'scale(1)'; sp1.style.pointerEvents = 'all';
-      sp2.style.opacity = '0'; sp2.style.transform = 'translateY(0) scale(0.94)'; sp2.style.pointerEvents = 'none';
+      if(sp1){ sp1.style.opacity = '1'; sp1.style.transform = 'scale(1)'; sp1.style.pointerEvents = 'all'; }
+      if(sp2){ sp2.style.opacity = '0'; sp2.style.transform = 'translateY(0) scale(0.94)'; sp2.style.pointerEvents = 'none'; }
+      
+      if(cardSusan){ cardSusan.style.opacity = '1'; cardSusan.style.filter = 'none'; cardSusan.style.transform = 'scale(1.02)'; cardSusan.style.boxShadow = '0 20px 50px rgba(239,68,68,0.35)'; }
+      if(cardJoy){ cardJoy.style.opacity = '0.35'; cardJoy.style.filter = 'grayscale(60%)'; cardJoy.style.transform = 'scale(0.98)'; cardJoy.style.boxShadow = 'none'; }
+
     } else if(s2Step === 2){
+      // Step 2: Joy Highlighted, Susan Dimmed
+      if(mainHeader){ mainHeader.style.opacity = '1'; mainHeader.style.visibility = 'visible'; }
+      if(sp1){ sp1.style.opacity = '1'; sp1.style.transform = 'scale(1)'; sp1.style.pointerEvents = 'all'; }
+      if(sp2){ sp2.style.opacity = '0'; sp2.style.transform = 'translateY(0) scale(0.94)'; sp2.style.pointerEvents = 'none'; }
+
+      if(cardSusan){ cardSusan.style.opacity = '0.35'; cardSusan.style.filter = 'grayscale(60%)'; cardSusan.style.transform = 'scale(0.98)'; cardSusan.style.boxShadow = 'none'; }
+      if(cardJoy){ cardJoy.style.opacity = '1'; cardJoy.style.filter = 'none'; cardJoy.style.transform = 'scale(1.02)'; cardJoy.style.boxShadow = '0 20px 50px rgba(249,115,22,0.35)'; }
+
+    } else if(s2Step === 3){
+      // Step 3: WhatsApp Study Findings
       if(mainHeader){ mainHeader.style.opacity = '0'; mainHeader.style.visibility = 'hidden'; }
-      sp1.style.opacity = '0'; sp1.style.transform = 'scale(0.94)'; sp1.style.pointerEvents = 'none';
-      sp2.style.opacity = '1'; sp2.style.transform = 'translateY(-20px) scale(1)'; sp2.style.pointerEvents = 'all';
+      if(sp1){ sp1.style.opacity = '0'; sp1.style.transform = 'scale(0.94)'; sp1.style.pointerEvents = 'none'; }
+      if(sp2){ sp2.style.opacity = '1'; sp2.style.transform = 'translateY(-20px) scale(1)'; sp2.style.pointerEvents = 'all'; }
     }
   }
 
@@ -1542,7 +1557,7 @@
   function navigate(dir){
     if(current === 2){
       if(dir === 1){
-        if(s2Step < 2){
+        if(s2Step < 3){
           s2Step++;
           updateS2Spotlight();
           return;
@@ -1556,7 +1571,7 @@
       }
     }
     const n=current+dir;
-    if(n>=1&&n<=TOTAL) goTo(n, dir===-1?2:1);
+    if(n>=1&&n<=TOTAL) goTo(n, dir===-1?3:1);
   }
 
   document.addEventListener('keydown',function(e){
