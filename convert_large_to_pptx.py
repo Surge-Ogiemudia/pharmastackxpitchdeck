@@ -27,6 +27,8 @@ def create_large_pptx():
         "slide_large_9.png",
         "slide_large_10.png",
         "slide_large_11.png",
+        "slide_large_12.png",
+        "slide_large_13.png",
     ]
 
     count = 0
