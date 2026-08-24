@@ -633,60 +633,73 @@
     <!-- Theater Unboxed Display Stage -->
     <div class="theater-stage" style="width:100%;max-width:1060px;height:420px;margin:0 auto;position:relative;display:flex;align-items:center;justify-content:center;">
       
-      <!-- STEP 1: SUSAN OBOH SPOTLIGHT -->
-      <div class="spotlight-card sp-1" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:grid;grid-template-columns:360px 1fr;gap:44px;align-items:center;box-sizing:border-box;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
-        <!-- LEFT: BIG STRIKING PORTRAIT -->
-        <div style="width:360px;height:420px;border-radius:18px;background:#180a0a;border:2px solid rgba(239,68,68,0.5);overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(239,68,68,0.25);box-sizing:border-box;">
-          <img id="susan-photo" src="susan_oboh.jpg" alt="Susan Oboh" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" onerror="this.style.display='none';document.getElementById('susan-placeholder').style.display='flex';" />
-          <div id="susan-placeholder" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;color:var(--red);padding:24px;text-align:center;">
-            <div style="font-size:54px;margin-bottom:12px;">🖼️</div>
-            <div style="font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;">[ Place Susan Oboh's Photo Here ]</div>
+      <!-- STEP 1: SUSAN OBOH & JOY AFIA (2 CENTRALIZED CARDS SIDE-BY-SIDE) -->
+      <div class="spotlight-card sp-1" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch;max-width:1040px;margin:0 auto;box-sizing:border-box;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
+        
+        <!-- CARD 1: SUSAN OBOH -->
+        <div style="background:var(--card);border:1.5px solid rgba(239,68,68,0.4);border-radius:20px;padding:26px 24px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);"></div>
+          
+          <div>
+            <!-- Tag -->
+            <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+              <span>❤️</span> SUSAN OBOH
+            </div>
+
+            <!-- Content Area: Image + Details -->
+            <div style="display:flex;gap:18px;align-items:center;margin-bottom:16px;">
+              <div style="width:130px;height:150px;border-radius:14px;background:#180a0a;border:1.5px solid rgba(239,68,68,0.5);overflow:hidden;flex-shrink:0;">
+                <img id="susan-photo" src="susan_oboh.jpg" alt="Susan Oboh" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" onerror="this.style.display='none';document.getElementById('susan-placeholder').style.display='flex';" />
+                <div id="susan-placeholder" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;color:var(--red);padding:12px;text-align:center;">
+                  <div style="font-size:32px;">🖼️</div>
+                  <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">[ Susan's Photo ]</div>
+                </div>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:14px;color:rgba(240,244,255,0.85);font-weight:700;line-height:1.4;margin-bottom:8px;">
+                  Gunshot victim (2022).<br>Needed Tranexamic Acid Inj.
+                </div>
+                <div style="font-family:'Outfit',sans-serif;font-size:30px;font-weight:900;color:var(--red);line-height:1.1;">
+                  Susan died.
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <!-- RIGHT: UNBOXED TEXT NARRATIVE -->
-        <div style="display:flex;flex-direction:column;justify-content:center;text-align:left;">
-          <div style="font-size:13.5px;font-weight:800;letter-spacing:3.5px;color:var(--red);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:6px;">
-            <span>❤️</span> IN MEMORY OF SUSAN OBOH
-          </div>
-          <div style="font-family:'Outfit',sans-serif;font-size:37px;font-weight:900;color:var(--text);line-height:1.22;margin-bottom:28px;">
-            Shot in 2022. Needed Tranexamic Acid Injection.<br><span style="color:var(--red);font-size:44px;display:inline-block;margin-top:6px;">Susan died.</span>
-          </div>
-          <div style="font-size:16.5px;font-weight:800;color:var(--orange);background:rgba(249,115,22,0.08);border-left:4px solid var(--orange);padding:16px 20px;border-radius:0 12px 12px 0;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+
+          <!-- Punchline -->
+          <div style="font-size:13px;font-weight:800;color:var(--orange);background:rgba(249,115,22,0.08);border-left:3px solid var(--orange);padding:12px 14px;border-radius:0 10px 10px 0;">
             Weeks later, I found it sitting on a shelf in a pharmacy nearby.
           </div>
         </div>
-      </div>
 
-      <!-- STEP 2: JOY AFIA SPOTLIGHT (GLASSMOPHIC QUOTE CARD) -->
-      <div class="spotlight-card sp-2" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;max-width:860px;margin:0 auto;box-sizing:border-box;opacity:0;pointer-events:none;transform:scale(0.95);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
-        
-        <!-- GLASS CARD BACKDROP -->
-        <div style="width:100%;background:rgba(18,10,10,0.6);border:1.5px solid rgba(249,115,22,0.3);border-radius:24px;padding:36px 40px;box-shadow:0 25px 70px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);position:relative;overflow:hidden;backdrop-filter:blur(16px);box-sizing:border-box;">
+        <!-- CARD 2: JOY AFIA -->
+        <div style="background:var(--card);border:1.5px solid rgba(249,115,22,0.4);border-radius:20px;padding:26px 24px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange);"></div>
           
-          <!-- WATERMARK QUOTE MARK -->
-          <div style="position:absolute;top:-30px;left:15px;font-family:'Outfit',sans-serif;font-size:180px;font-weight:900;color:rgba(249,115,22,0.07);line-height:1;pointer-events:none;user-select:none;">“</div>
-          <div style="position:absolute;bottom:-80px;right:15px;font-family:'Outfit',sans-serif;font-size:180px;font-weight:900;color:rgba(249,115,22,0.07);line-height:1;pointer-events:none;user-select:none;">”</div>
+          <div>
+            <!-- Tag -->
+            <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+              <span>🧡</span> JOY AFIA
+            </div>
 
-          <!-- TAG -->
-          <div style="font-size:13.5px;font-weight:800;letter-spacing:3.5px;color:var(--orange);text-transform:uppercase;margin-bottom:20px;position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:6px;">
-            <span>🧡</span> JOY AFIA
+            <!-- Narrative -->
+            <div style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:var(--text);line-height:1.25;margin-bottom:12px;">
+              Asthma attack in an Uber. Visited 4 pharmacies.<br>
+              <span style="color:var(--orange);font-size:26px;display:inline-block;margin-top:4px;">Turned away at every single one.</span>
+            </div>
           </div>
 
-          <!-- HEADLINE -->
-          <div style="font-family:'Outfit',sans-serif;font-size:38px;font-weight:900;color:var(--text);line-height:1.22;margin-bottom:28px;position:relative;z-index:2;">
-            Asthma attack in an Uber. Visited 4 pharmacies.<br><span style="color:var(--orange);font-size:44px;display:inline-block;margin-top:6px;">Turned away at every single one.</span>
-          </div>
-
-          <!-- GREEN TEAM BADGE -->
-          <div style="font-size:17.5px;font-weight:800;color:var(--green);background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.3);padding:16px 28px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.3);position:relative;z-index:2;display:inline-block;">
+          <!-- Green Team Badge -->
+          <div style="font-size:13px;font-weight:800;color:var(--green);background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.3);padding:12px 16px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,0.2);">
             She is now on our team, building the solution she desperately needed.
           </div>
 
         </div>
+
       </div>
 
-      <!-- STEP 3: WHATSAPP DATA SPOTLIGHT (THE BRIDGE TO SOLUTION) -->
-      <div class="spotlight-card sp-3" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:grid;grid-template-columns:400px 1fr;gap:44px;align-items:center;box-sizing:border-box;opacity:0;pointer-events:none;transform:scale(0.95);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
+      <!-- STEP 2: WHATSAPP DATA SPOTLIGHT (THE BRIDGE TO SOLUTION) -->
+      <div class="spotlight-card sp-2" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:grid;grid-template-columns:400px 1fr;gap:44px;align-items:center;box-sizing:border-box;opacity:0;pointer-events:none;transform:scale(0.95);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
         <!-- LEFT: 180 METRIC + AUTHENTIC WHATSAPP GROUP TILE -->
         <div>
           <!-- ABOVE TILE HEADER -->
@@ -1470,26 +1483,18 @@
   function updateS2Spotlight(){
     const sp1 = document.querySelector('.sp-1');
     const sp2 = document.querySelector('.sp-2');
-    const sp3 = document.querySelector('.sp-3');
-    if(!sp1 || !sp2 || !sp3) return;
+    if(!sp1 || !sp2) return;
 
     const mainHeader = document.getElementById('s2-main-header');
 
     if(s2Step === 1){
       if(mainHeader){ mainHeader.style.opacity = '1'; mainHeader.style.visibility = 'visible'; }
       sp1.style.opacity = '1'; sp1.style.transform = 'scale(1)'; sp1.style.pointerEvents = 'all';
-      sp2.style.opacity = '0'; sp2.style.transform = 'scale(0.94)'; sp2.style.pointerEvents = 'none';
-      sp3.style.opacity = '0'; sp3.style.transform = 'translateY(0) scale(0.94)'; sp3.style.pointerEvents = 'none';
+      sp2.style.opacity = '0'; sp2.style.transform = 'translateY(0) scale(0.94)'; sp2.style.pointerEvents = 'none';
     } else if(s2Step === 2){
       if(mainHeader){ mainHeader.style.opacity = '0'; mainHeader.style.visibility = 'hidden'; }
       sp1.style.opacity = '0'; sp1.style.transform = 'scale(0.94)'; sp1.style.pointerEvents = 'none';
       sp2.style.opacity = '1'; sp2.style.transform = 'translateY(-20px) scale(1)'; sp2.style.pointerEvents = 'all';
-      sp3.style.opacity = '0'; sp3.style.transform = 'translateY(0) scale(0.94)'; sp3.style.pointerEvents = 'none';
-    } else if(s2Step === 3){
-      if(mainHeader){ mainHeader.style.opacity = '0'; mainHeader.style.visibility = 'hidden'; }
-      sp1.style.opacity = '0'; sp1.style.transform = 'scale(0.94)'; sp1.style.pointerEvents = 'none';
-      sp2.style.opacity = '0'; sp2.style.transform = 'scale(0.94)'; sp2.style.pointerEvents = 'none';
-      sp3.style.opacity = '1'; sp3.style.transform = 'translateY(-30px) scale(1)'; sp3.style.pointerEvents = 'all';
     }
   }
 
@@ -1533,7 +1538,7 @@
   function navigate(dir){
     if(current === 2){
       if(dir === 1){
-        if(s2Step < 3){
+        if(s2Step < 2){
           s2Step++;
           updateS2Spotlight();
           return;
@@ -1547,7 +1552,7 @@
       }
     }
     const n=current+dir;
-    if(n>=1&&n<=TOTAL) goTo(n, dir===-1?3:1);
+    if(n>=1&&n<=TOTAL) goTo(n, dir===-1?2:1);
   }
 
   document.addEventListener('keydown',function(e){
