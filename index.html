@@ -637,29 +637,29 @@
       <div class="spotlight-card sp-1" style="position:absolute;inset:0;background:transparent;border:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch;max-width:1040px;margin:0 auto;box-sizing:border-box;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);">
         
         <!-- CARD 1: SUSAN OBOH -->
-        <div style="background:var(--card);border:1.5px solid rgba(239,68,68,0.4);border-radius:20px;padding:26px 24px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;">
+        <div style="background:var(--card);border:1.5px solid rgba(239,68,68,0.4);border-radius:20px;padding:24px 22px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;">
           <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--red);"></div>
           
           <div>
             <!-- Tag -->
-            <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+            <div style="font-size:11.5px;font-weight:800;letter-spacing:2px;color:var(--red);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;">
               <span>❤️</span> SUSAN OBOH
             </div>
 
-            <!-- Content Area: Image + Details -->
-            <div style="display:flex;gap:18px;align-items:center;margin-bottom:16px;">
-              <div style="width:130px;height:150px;border-radius:14px;background:#180a0a;border:1.5px solid rgba(239,68,68,0.5);overflow:hidden;flex-shrink:0;">
+            <!-- Content Area: Taller Photo + Right Side Details -->
+            <div style="display:flex;gap:18px;align-items:stretch;margin-bottom:14px;min-height:205px;">
+              <div style="width:160px;height:205px;border-radius:14px;background:#180a0a;border:1.5px solid rgba(239,68,68,0.5);overflow:hidden;flex-shrink:0;">
                 <img id="susan-photo" src="susan_oboh.jpg" alt="Susan Oboh" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;" onerror="this.style.display='none';document.getElementById('susan-placeholder').style.display='flex';" />
                 <div id="susan-placeholder" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;color:var(--red);padding:12px;text-align:center;">
-                  <div style="font-size:32px;">🖼️</div>
+                  <div style="font-size:36px;">🖼️</div>
                   <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">[ Susan's Photo ]</div>
                 </div>
               </div>
-              <div style="flex:1;">
-                <div style="font-size:14px;color:rgba(240,244,255,0.85);font-weight:700;line-height:1.4;margin-bottom:8px;">
+              <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+                <div style="font-size:15px;color:rgba(240,244,255,0.9);font-weight:700;line-height:1.45;margin-bottom:12px;">
                   Gunshot victim (2022).<br>Needed Tranexamic Acid Inj.
                 </div>
-                <div style="font-family:'Outfit',sans-serif;font-size:30px;font-weight:900;color:var(--red);line-height:1.1;">
+                <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:var(--red);line-height:1.05;">
                   Susan died.
                 </div>
               </div>
@@ -676,21 +676,25 @@
         <div style="background:var(--card);border:1.5px solid rgba(249,115,22,0.4);border-radius:20px;padding:26px 24px;box-shadow:0 15px 40px rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;text-align:left;">
           <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange);"></div>
           
-          <div>
+          <!-- WATERMARK QUOTE MARKS -->
+          <div style="position:absolute;top:-15px;left:10px;font-family:'Outfit',sans-serif;font-size:150px;font-weight:900;color:rgba(249,115,22,0.06);line-height:1;pointer-events:none;user-select:none;">“</div>
+          <div style="position:absolute;bottom:-50px;right:10px;font-family:'Outfit',sans-serif;font-size:150px;font-weight:900;color:rgba(249,115,22,0.06);line-height:1;pointer-events:none;user-select:none;">”</div>
+
+          <div style="position:relative;z-index:2;">
             <!-- Tag -->
-            <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+            <div style="font-size:11.5px;font-weight:800;letter-spacing:2.5px;color:var(--orange);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:6px;">
               <span>🧡</span> JOY AFIA
             </div>
 
             <!-- Narrative -->
-            <div style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:var(--text);line-height:1.25;margin-bottom:12px;">
-              Asthma attack in an Uber. Visited 4 pharmacies.<br>
-              <span style="color:var(--orange);font-size:26px;display:inline-block;margin-top:4px;">Turned away at every single one.</span>
+            <div style="font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;color:var(--text);line-height:1.28;margin-bottom:14px;">
+              Asthma attack in an Uber.<br>Visited 4 pharmacies.<br>
+              <span style="color:var(--orange);font-size:30px;display:inline-block;margin-top:6px;">Turned away at every single one.</span>
             </div>
           </div>
 
           <!-- Green Team Badge -->
-          <div style="font-size:13px;font-weight:800;color:var(--green);background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.3);padding:12px 16px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,0.2);">
+          <div style="font-size:14px;font-weight:800;color:var(--green);background:rgba(0,229,160,0.08);border:1.5px solid rgba(0,229,160,0.35);padding:14px 18px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,0.25);position:relative;z-index:2;">
             She is now on our team, building the solution she desperately needed.
           </div>
 
